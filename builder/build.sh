@@ -88,8 +88,8 @@ PKG_VER=$(dpkg-parsechangelog --show-field Version -l ffbuild/ffmpeg/debian/chan
 PKG_NAME="jellyfin-ffmpeg_${PKG_VER}_portable_${TARGET}-${VARIANT}${ADDINS_STR:+-}${ADDINS_STR}"
 
 mkdir -p ffbuild/pkgroot
-cp ffbuild/prefix/bin/* ffbuild/pkgroot
-[ "$(ls -A ffbuild/prefix/lib | grep -i ".*\.so.*\$")" ] && cp ffbuild/prefix/lib/*.so* ffbuild/pkgroot
+cp -a ffbuild/prefix/bin/* ffbuild/pkgroot
+[ "$(ls -A ffbuild/prefix/lib | grep -i ".*\.so.*\$")" ] && cp -a ffbuild/prefix/lib/*.so* ffbuild/pkgroot
 
 cd ffbuild/pkgroot
 if [[ "${TARGET}" == win* ]]; then

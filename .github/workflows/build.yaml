@@ -52,6 +52,7 @@ jobs:
     with:
       os: 'linux'
       architectures: '["amd64", "arm64"]'
+      variants: '["gpl", "gpl-shared"]'
       release: false
 
   build_portable_mac:

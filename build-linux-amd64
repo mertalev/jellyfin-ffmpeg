@@ -9,10 +9,11 @@ for dep in bash docker; do
 done
 
 # Build the jellyfin-ffmpeg portable version
-[[ $(docker image ls 'ghcr.io/jellyfin/jellyfin-ffmpeg/linux64-gpl:latest' | wc -l) -eq 1 ]] && \
-    ./builder/makeimage.sh linux64 gpl
+variant="${2:-gpl}"
+[[ $(docker image ls "ghcr.io/jellyfin/jellyfin-ffmpeg/linux64-${variant}:latest" | wc -l) -eq 1 ]] && \
+    ./builder/makeimage.sh linux64 "${variant}"
 
-./builder/build.sh linux64 gpl
+./builder/build.sh linux64 "${variant}"
 
 # If no 1st parameter was specified, move pkg to parent directory
 if [[ -z ${1} ]]; then
@@ -20,5 +21,5 @@ if [[ -z ${1} ]]; then
 else
     path="${1}"
 fi
-mkdir ${path} &>/dev/null || true
-mv builder/artifacts/jellyfin-ffmpeg*portable_linux64-gpl*.tar.xz "${path}"
+mkdir "${path}" &>/dev/null || true
+mv builder/artifacts/jellyfin-ffmpeg*portable_linux64-"${variant}"*.tar.xz "${path}"
